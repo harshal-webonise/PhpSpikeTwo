@@ -6,7 +6,7 @@
    	<?
    	$token = md5(uniqid(rand(), true));
     	?>
-<form method="post" name="login" action="index.php"> 
+<form method="post" name="login" action="http://localhost/PhpSpikeTwo/index.php"> 
 <fieldset >
 <legend>Login</legend>
 <input type='hidden' name='submitted' id='submitted' value='1'/>
