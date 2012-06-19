@@ -1,0 +1,15 @@
+<html>
+    <head>
+        Security checks
+     </head>
+    <body>
+<form method="post" name="login" action="index.php">       
+  User name: <input type="text" name="uname" /><br />
+  Password: <input type="password" name="password" /><br />
+  Comment : <textarea rows="2" cols="20"></textarea><br />
+<input type="submit" id="submit" name="submit" onclick="javascript:document.login.submit()"> 
+</form>
+
+</body>
+
+<html>
