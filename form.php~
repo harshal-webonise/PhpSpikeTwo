@@ -1,6 +1,9 @@
 <html>
     <head>
-        Security checks
+        <h1>Security checks</h1>
+        
+
+</script>
      </head>
      <body>
    	<?
@@ -19,6 +22,37 @@
 
 </form>
 
+
+
+<form method="post" name="pass" action="http://localhost/PhpSpikeTwo/index.php"> 
+<fieldset >
+<legend>Login</legend>
+<input type='hidden' name='submitted' id='submitted' value='1'/>
+<label for='login' >Login*:</label>
+<input type='text' name='login' id='login'  maxlength="50" />
+<label for='password' >Password*:</label>
+<input type='password' name='password' id='password' maxlength="50" />
+<input type="submit" id="submit" name="submit" onclick="javascript:document.pass.submit()"> 
+</fieldset>
+
+</form>
+
+
+
+<form enctype="multipart/form-data" action="fileUpload.php" method="POST" name="file">
+<input type="hidden" name="MAX_FILE_SIZE" value="100000" />
+Choose a file to upload: <input name="uploadedfile" type="file" /><br />
+<input type="submit" value="Upload File"  onclick="javascript:document.pass.submit()" />
+</form>
+
+
+<form method="get" name="include" action="include.php">
+   <select name="COLOR">
+      <option value="red">red</option>
+      <option value="blue">blue</option>
+   </select>
+   <input type="submit" onclick="javascript:document.include.submit()" name ="include">
+</form>
 </body>
 
 <html>

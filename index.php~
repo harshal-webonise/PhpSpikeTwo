@@ -12,11 +12,14 @@ echo"$token";
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
-$username= "'".$_POST['uname']."'";
-$filteredUserName = htmlspecialchars($username);//To avoid xss attack
-$password ="'".$_POST['password']."'";
-$filteredUserPass = htmlspecialchars($password);//to avoid xss attack
-
+	$username= $_POST['uname'];
+	$filteredUserName = htmlspecialchars($username);//To avoid xss attack
+	$password =$_POST['password'];
+	$filteredUserPass = htmlspecialchars($password);//to avoid xss attack
+	//echo"$password $filteredUserPass"."<br />";
+	//$md5pwd = $filteredUserPass;
+	$md5pwd = md5($filteredUserPass);
+	//echo"md5pwd=$md5pwd";
 	$user_name = "root";
 	$password = "root";
 	$database = "harshal";
@@ -25,7 +28,7 @@ $filteredUserPass = htmlspecialchars($password);//to avoid xss attack
 	$db_found = mysql_select_db($database, $db_handle);
 	if ($db_found) 
 	{
-		print "Database Found ";
+		//print "Database Found ";
 		
 	}
 		else 
@@ -33,19 +36,13 @@ $filteredUserPass = htmlspecialchars($password);//to avoid xss attack
 			print "Database NOT Found ";
 		}
 
- DisableMagicQuotes();
- //evalFunction($filteredUserName,$filteredUserPass)
-
-Login($filteredUserName,$filteredUserPass);
-
-//SQL($filteredUserName,$filteredUserPass);
+	//DisableMagicQuotes();
+	Login($filteredUserName,$md5pwd );
 
 
 
-function evalFunction() 
-{
-	eval()
-	}
+
+
 
 /*disable magic quotes*/
 function DisableMagicQuotes()
@@ -71,7 +68,7 @@ function DisableMagicQuotes()
 
 function Login($filteredUserName,$filteredUserPass)
 { 
-echo"$filteredUserName and"." $filteredUserPass";
+//echo" $filteredUserPass";
     if(empty($filteredUserName))
     {
         print "user name is empty ";
@@ -84,86 +81,51 @@ echo"$filteredUserName and"." $filteredUserPass";
     }
   
     
-    if(SQL($filteredUserName,$filteredUserPass)==false)
-    {
-        return false;
-    }
-     
-else{   
+    SQL($filteredUserName,$filteredUserPass);
     
-    echo"Proper";
-   
-    return true;
-}
+     
 
 
 }
 
 function SQL($username,$password) 
 {	
+//echo"$username";
+	//$query = sprintf("SELECT uname, password FROM admin WHERE uname='%s' AND password='%s'",mysql_real_escape_string($username),mysql_real_escape_string($password));
+   //echo $username;
+   //echo $password;
+   $injectUserName = mysql_real_escape_string($username);
+   $injectPassword = mysql_real_escape_string($password);
+	$query = "SELECT uname, password FROM admin WHERE uname='$injectUserName' AND password='$injectPassword'";
+	$result = mysql_query($query);
+	//echo mysql_num_rows($result);
+	//echo "<br />"."$result";
+	if (!mysql_num_rows($result)) 
+	{
+    $message  = 'Invalid query: ' . mysql_error() . "\n";
+    $message .= 'Whole query: ' . $query;
+    die($message);
+	}
+	else
+	{   
+   echo "Valid user name and password";
+   while ($row = mysql_fetch_assoc ($result)) 
+   {
+   	echo "hi..";
+   	extract ($row);
+		echo "name = $username <br>password = $password <br><br />";
+	}
 
-//echo"I am in sql";
-	//echo"$username";
-	//echo"$password";
-		//mysql_real_escape_string($username);
-		//mysql_real_escape_string($password);
-				$query = "select * from admin";	
-				//echo"HIIIIIII";	
-			//$query = mysql_query("SELECT uname,password FROM admin WHERE uname= $username  and password= $password ");
-			//echo "sql returns $query"."<br />";
-				$result = mysql_query($query);
-				echo"$result";
-				eval("\$result = \"$result\";")
-				
-				 if(mysql_num_rows($result))
-                {
-                    while($rows = mysql_fetch_row($result))
-                    {
-                        foreach($rows as $row)
-                           echo "<br/>$row";
-                           
-                    }
+   
+    return true;
+    }
 
-                }
-				if($result!=false) 
-				return true;
-				
-			while ($db_field = mysql_fetch_assoc($result))
-		{
-//print $db_field['id'] . "<BR>";
-print $db_field['uname'] . "<BR>";
-print $db_field['password'] . "<BR>";
+
+
 
 }
 
-}
 
-
-// disable magic quotes
-
-
-/*function connection()
-	{
-	$user_name = "root";
-	$password = "root";
-	$database = "harshal";
-	$server = "127.0.0.1";
-	$db_handle = mysql_connect($server, $user_name, $password);
-	$db_found = mysql_select_db($database, $db_handle);
-	if ($db_found) 
-	{
-	
-
-		print "Database Found ";
-		
-		}
-		else 
-		{
-			print "Database NOT Found ";
-		}
-
-}//end of connection
-*/
 ?>
 
    </body>
