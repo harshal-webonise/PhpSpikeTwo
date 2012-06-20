@@ -8,6 +8,8 @@
      <body>
    	<?
    	$token = md5(uniqid(rand(), true));
+   	session_start();
+		require_once('nocsrf.php');
     	?>
 <form method="post" name="login" action="http://localhost/PhpSpikeTwo/index.php"> 
 <fieldset >
@@ -21,9 +23,6 @@
 </fieldset>
 
 </form>
-
-
-
 
 
 
@@ -42,6 +41,13 @@ Choose a file to upload: <input name="uploadedfile" type="file" /><br />
    </select>
    <input type="submit" onclick="javascript:document.include.submit()" name ="include">
 </form>
+
+<form action="csrfAttack2.php">
+<input type="hidden" name="csrf" value="<?php echo $token; ?>">
+csrf attack check 
+<input type="submit" name ="submit">
+</form>
+</body>
 </body>
 
 <html>

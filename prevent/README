@@ -1,0 +1,39 @@
+ 	 1.    XSS 							:$filteredUserName = htmlspecialchars($username);//To avoid xss attack
+    2.    SQL Injection				:$injectUserName = mysql_real_escape_string($username);
+   										 $injectPassword = mysql_real_escape_string($password);
+    3.    Spoofed Form Input		:Spoofed Form Input is prevented by using http url in form action method.
+    4.    CSRF							:CSRF attack avoided by writing seperate script csrfAttack2.php to prevent attack
+    5.    File Uploads				:File upload attack is prevented by creating temporary file name and compare both then uploaded..malicious file prevented  
+    6.    Including Files			: used example of drop downlist of color such as blue and red to prevent include attack
+    7.    eval()
+    8.    Register Globals			:
+    9.    Magic Quotes				:magic quotes function to prevent attacks
+   10.    Error Reporting			:used in built function E_ALL and 0 in programm
+   11.    Plain Text Passwords	:When user enter user name and password ,the password is converted in encrypt form by using md5 alogrithm
+   
+   
+   
+   how to load to prevent attacks :http://localhost/PhpSpikeTwo/prevent/
+   how to load to attacks :http://localhost/PhpSpikeTwo/attacks/
+   URl:https://github.com/harshal-webonise/PhpSpikeTwo.git
+   
+   
+   files are:
+   folder
+   prevent
+   		-README
+   		-index.php
+   		-form.php
+   		-include.php
+   		-fileUpload.php
+   		-csrfAttack.php
+   attack
+   		files
+   		 -README
+   		 -index.php
+   		 -form.php
+   		 -include.php
+   		 -fileUpload.php
+   		 -csrfAttack.php
+   		 -fileUploadWithAttack.php
+   		 -csrfPrevent.php
