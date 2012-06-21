@@ -6,11 +6,27 @@
  	      
 <?php
 
+include('security.php'); 
+@require 'register_globals.php';
+
 //error reporitng 
 error_reporting(0);
-echo"$token";
+//echo"$token";
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
+register_globals();
+
+
+
+
+$security = new security(); 
+
+if ($_POST) 
+{ 
+    $security->prevent_remote_referrer(); 
+    // HTTP POST form-data processing code goes below... 
+} 
+
 
 	$username= $_POST['uname'];
 	$filteredUserName = htmlspecialchars($username);//To avoid xss attack
